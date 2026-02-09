@@ -1,73 +1,93 @@
-# React + TypeScript + Vite
+# 酒店管理后台系统
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+这是一个专为酒店设计的内部管理后台应用。该系统允许酒店员工高效地管理预订、房间、住客信息，并实时查看酒店运营的统计数据。
 
-Currently, two official plugins are available:
+## ✨ 功能特性
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 📊 仪表盘 (Dashboard)
+  - 实时概览关键指标（预订数、销售额、入住率等）。
 
-## React Compiler
+  - 可视化销售统计和入住时长分布图表。
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+  - 实时展示今日待处理的入住和退房活动。
 
-## Expanding the ESLint configuration
+- 🏠 房间管理 (Cabins)
+  - 查看房间列表及其详细信息（容量、价格、折扣）。
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+  - 创建、编辑、复制和删除房间。
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+  - 支持上传和管理房间图片。
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- 📅 预订管理 (Bookings)
+  - 查看所有预订的详细列表。
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+  - 支持按状态（未入住、已入住、已退房）筛选和按金额/日期排序。
+
+  - 处理住客入住和退房流程。
+
+  - 预订详情查看与管理。
+
+- 🔐 身份认证 (Authentication)
+  - 仅限授权员工访问系统。
+
+  - 个人资料更新（头像、密码）。
+
+- ⚙️ 系统设置 (Settings)
+  - 灵活配置全局参数：早餐价格、最小/最大预订天数、最大人数等。
+
+- 🎨 用户体验
+  - 暗黑模式: 支持一键切换明亮/暗黑主题。
+
+  - 交互反馈: 使用 Toast 通知提供操作反馈。
+
+## 🛠️ 技术栈
+
+本项目使用现代前端技术栈构建：
+
+- 核心框架: React 19 + TypeScript
+
+- 构建工具: Vite
+
+- 状态管理 & 数据请求: TanStack Query (React Query) + Loader- 预取数据并缓存。
+
+- 路由: React Router DOM
+
+- 样式方案: Styled Components - CSS-in-JS 解决方案。
+
+- 数据可视化: ECharts
+
+- 其他工具:
+  - date-fns: 日期处理
+
+  - react-hot-toast: 消息通知
+
+  - react-icons: 图标库
+
+## 🚀 前置要求
+
+- Node.js v20.19.5
+
+## 📂 项目结构
+
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+src/
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+├── context/       # React Context (暗黑模式状态)
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+├── data/          # 模拟数据
+
+├── features/      # 业务功能模块 (Auth, Bookings, Cabins, etc.)
+
+├── hooks/         # 自定义 Hooks
+
+├── pages/         # 页面组件
+
+├── services/      # API 服务层
+
+├── styles/        # 全局样式
+
+├── ui/            # 可复用的基础 UI 组件
+
+└── utils/         # 工具函数和常量
 ```
