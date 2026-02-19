@@ -14,7 +14,7 @@ const Logo = () => {
   return (
     <StyledLogo>
       <Img
-        src="https://pjlxgflmrejgipvxmjgr.supabase.co/storage/v1/object/public/cabin-images/logo.png"
+        src="https://pjlxgflmrejgipvxmjgr.supabase.co/storage/v1/object/public/cabin-images/icon.png"
         alt="Logo"
       />
     </StyledLogo>

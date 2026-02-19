@@ -9,9 +9,8 @@ import { useSearchParams } from "react-router-dom"; // 添加依赖
 import { subDays } from "date-fns";
 import Spinner from "@/ui/Spinner";
 import Stats from "@/features/dashboard/Stats";
-import SalesChart from "@/features/dashboard/SalesChart";
-import DurationChart from "@/features/dashboard/DurationChart";
 import TodayActivity from "../check-in-out/TodayActivity";
+import { lazy, Suspense } from "react";
 
 const StyledDashboardLayout = styled.div`
   display: grid;
@@ -19,6 +18,10 @@ const StyledDashboardLayout = styled.div`
   grid-template-rows: auto auto auto;
   gap: 2.4rem;
 `;
+
+// 配合打包优化按需引入
+const SalesChart = lazy(() => import("@/features/dashboard/SalesChart"));
+const DurationChart = lazy(() => import("@/features/dashboard/DurationChart"));
 
 function DashboardLayout() {
   const [searchParams] = useSearchParams();
@@ -51,8 +54,12 @@ function DashboardLayout() {
         cabinCount={cabins?.length || 0}
       ></Stats>
       <TodayActivity />
-      <DurationChart confirmStays={confirmStays || []} />
-      <SalesChart bookings={bookings || []} numDays={numDays} />
+      <Suspense fallback={<Spinner />}>
+        <DurationChart confirmStays={confirmStays || []} />
+      </Suspense>
+      <Suspense fallback={<Spinner />}>
+        <SalesChart bookings={bookings || []} numDays={numDays} />
+      </Suspense>
     </StyledDashboardLayout>
   );
 }
