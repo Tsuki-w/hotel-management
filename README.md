@@ -47,6 +47,9 @@
 - 核心框架: React 19 + TypeScript
 
 - 构建工具: Vite
+  - 集成 PWA (vite-plugin-pwa) 实现离线访问和应用安装。
+  - 配置 Gzip 压缩 (vite-plugin-compression) 优化加载速度。
+  - 使用 rollup-plugin-visualizer 进行构建包体积分析。
 
 - 状态管理 & 数据请求: TanStack Query (React Query) + Loader- 预取数据并缓存。
 
