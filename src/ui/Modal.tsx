@@ -90,6 +90,7 @@ function Window({ children, name }: TWindow) {
         <Button onClick={close}>
           <HiXMark />
         </Button>
+        {/* 将关闭弹窗绑定到子元素的onCloseModal属性上 */}
         <div>{cloneElement(children, { onCloseModal: close })}</div>
       </StyledModal>
     </Overlay>,

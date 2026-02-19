@@ -21,7 +21,8 @@ const StyledConfirmDelete = styled.div`
 
 type IProps = {
   resourceName: string;
-  onConfirm: () => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onConfirm: (options?: any) => void;
   disabled: boolean;
   onCloseModal?: () => void;
 };
@@ -45,7 +46,11 @@ function ConfirmDelete({
         >
           取消
         </Button>
-        <Button variation="danger" disabled={disabled} onClick={onConfirm}>
+        <Button
+          variation="danger"
+          disabled={disabled}
+          onClick={() => onConfirm({ onSuccess: onCloseModal })}
+        >
           删除
         </Button>
       </div>

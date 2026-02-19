@@ -11,7 +11,7 @@ export default defineConfig({
     react(),
     // 配置PWA
     VitePWA({
-      registerType: "autoUpdate", //自动更新service worker
+      registerType: "autoUpdate", // 自动更新service worker
       devOptions: {
         enabled: true, // 开启开发环境下的 PWA 功能
       },
@@ -29,8 +29,9 @@ export default defineConfig({
         ],
       },
       workbox: {
-        globPatterns: ["**/*.{js,css,html,ico,png,svg}"], //缓存内容
-        cleanupOutdatedCaches: true, //自动清理旧版缓存
+        globPatterns: ["**/*.{js,css,html,ico,png,svg}"], // 缓存内容
+        cleanupOutdatedCaches: true, // 自动清理旧版缓存
+        // 配置运行时缓存
         runtimeCaching: [
           // 缓存谷歌字体-优先查缓存
           {
@@ -63,7 +64,8 @@ export default defineConfig({
           },
           // 缓存房间图片-优先展示缓存，后台更新
           {
-            urlPattern: /^https:\/\/pjlxgflmrejgipvxmjgr\.supabase\.co\/.*/i,
+            urlPattern:
+              /^https:\/\/pjlxgflmrejgipvxmjgr\.supabase\.co\/storage\/v1\/object\/public\/cabin-images\/.*/i,
             handler: "StaleWhileRevalidate",
             options: {
               cacheName: "supabase-image",
@@ -90,7 +92,7 @@ export default defineConfig({
     }),
     // 配置打包分析
     visualizer({
-      open: true, // 打包完成后，自动在浏览器打开分析报告网页
+      // open: true, // 打包完成后，自动在浏览器打开分析报告网页
       gzipSize: true, // 在报告里显示开启 gzip 后的体积估算
       filename: "stats.html", // 分析报告生成的文件名
     }),

@@ -84,7 +84,7 @@ function CabinRow({ cabin }: IProps) {
               <ConfirmDelete
                 resourceName="房间"
                 disabled={isPending}
-                onConfirm={() => mutate(cabinId)}
+                onConfirm={(option) => mutate(cabinId, option)}
               ></ConfirmDelete>
             </Modal.Window>
           </Modal>
