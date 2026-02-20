@@ -35,10 +35,11 @@ function CheckinBooking() {
   if (isPending || isChecking || !booking) return <Spinner />;
 
   const { guests, totalPrice, numGuests, hasBreakfast, numNights } = booking;
-  const setting = settings?.find((item) => item.id === Number(id));
+  const setting = settings?.[0];
 
-  const breakfastPrice =
-    setting?.breakfastPrice || 0 * numNights * numGuests || 0;
+  const breakfastPrice = setting?.breakfastPrice
+    ? setting.breakfastPrice * numNights * numGuests
+    : 0;
 
   function handleCheckin() {
     if (!confirmPaid) return;

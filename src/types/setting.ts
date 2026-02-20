@@ -7,6 +7,8 @@ export type TSettings = {
   breakfastPrice: number;
 };
 
-export type TUpdateSetting = Partial<Omit<TSettings, "created_at" | "id">> & {
+export type TUpdateSetting = Partial<
+  Omit<TSettings, "created_at" | "id" | "maxGuestsPerBooking">
+> & {
   id: number;
 };

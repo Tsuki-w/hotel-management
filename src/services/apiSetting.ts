@@ -14,10 +14,11 @@ export async function getSettings(): Promise<TSettings[]> {
 export async function updateSetting(
   newSetting: TUpdateSetting,
 ): Promise<TSettings> {
+  const { id, ...updateData } = newSetting;
   const { data, error } = await supabase
     .from("settings")
-    .update(newSetting)
-    .eq("id", newSetting.id)
+    .update(updateData)
+    .eq("id", id)
     .single();
 
   if (error) {
