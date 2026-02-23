@@ -18,6 +18,7 @@ export async function getBookings(
   sortBy: string,
   direction: string,
   page: number,
+  signal?: AbortSignal,
 ): Promise<{ data: TBooking[]; count: number | null }> {
   let query = supabase
     .from("bookings")
@@ -25,6 +26,9 @@ export async function getBookings(
       "id,created_at,startDate,endDate,numNights,numGuests,totalPrice,status,cabins(name),guests(fullName,email)",
       { count: "exact" },
     );
+  if (signal) {
+    query = query.abortSignal(signal);
+  }
   if (filter) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     query = (query as any)[method](filter.field, filter.value);
@@ -39,6 +43,13 @@ export async function getBookings(
 
   const { data, error, count } = await query;
   if (error) {
+    // 请求被取消时，抛出的 AbortError 会直接冒泡给 React Query处理
+    // 所以此处需要单独处理，避免取消请求的错误被当成常规错误抛出引起错误弹窗
+    if (signal?.aborted) {
+      const abortError = new Error("请求被取消");
+      abortError.name = "AbortError";
+      throw abortError;
+    }
     throw new Error("获取预订列表失败");
   }
 

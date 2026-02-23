@@ -13,16 +13,22 @@ export const bookingsQuery = (
   page: number,
 ) => ({
   queryKey: ["bookings", filter, method, sortBy, direction, page],
-  queryFn: async () => {
+  // 当 React Query 检测到 Query Key 变化时，会自动向旧的 queryFn 传递一个取消信号。
+  // 将这个信号传递给 Supabase，让其终止网络请求
+  // 这可以在用户在上一个请求未结束时就发起下一个请求时终止上一个请求，节约资源。
+  queryFn: async ({ signal }: { signal?: AbortSignal }) => {
     const { data, count } = await getBookings(
       filter,
       method,
       sortBy,
       direction,
       page,
+      signal,
     );
     return { data: data as unknown as TBooking[], count };
   },
+  // 针对高频查询场景，缩短垃圾回收时间以释放内存
+  gcTime: 60 * 1000,
 });
 
 // 2. Loader 使用 ensureQueryData 预加载数据

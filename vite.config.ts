@@ -12,6 +12,7 @@ export default defineConfig({
     // 配置PWA
     VitePWA({
       registerType: "autoUpdate", // 自动更新service worker
+      selfDestroying: true, // 开启自销毁模式
       devOptions: {
         enabled: true, // 开启开发环境下的 PWA 功能
       },
