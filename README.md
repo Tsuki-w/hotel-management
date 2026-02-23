@@ -70,6 +70,18 @@
 
 - Node.js v20.19.5
 
+## ⚙️ 环境配置
+
+本项目依赖环境变量进行 API 通信。请参照根目录下的 `.env.example` 文件创建 `.env` 文件。
+
+1. 复制 `.env.example` 为 `.env`：
+
+2. 在 `.env` 文件中填入您的 Supabase 配置信息：
+   ```
+   VITE_SUPABASE_KEY=your_supabase_key
+   VITE_SUPABASE_URL=your_supabase_url
+   ```
+
 ## 📂 项目结构
 
 ```
