@@ -12,18 +12,20 @@ import {
 type IProps = {
   bookings: TBookingsAfterDate[];
   confirmedStays: TStaysAfterDate[];
-  numDays: number;
-  cabinCount: number;
+  // numDays: number;
+  // cabinCount: number;
 };
 
 // 酒店情况统计预览
-function Stats({ bookings, confirmedStays, numDays, cabinCount }: IProps) {
+function Stats({ bookings, confirmedStays }: IProps) {
   const numBookings = bookings.length;
   const sales = bookings.reduce((acc, cur) => acc + cur.totalPrice, 0);
   const checkins = confirmedStays.length;
+  // const occupation =
+  //   confirmedStays.reduce((acc, cur) => acc + cur.numNights, 0) /
+  //   (numDays * cabinCount);
   const occupation =
-    confirmedStays.reduce((acc, cur) => acc + cur.numNights, 0) /
-    (numDays * cabinCount);
+    bookings.length > 0 ? confirmedStays.length / bookings.length : 0;
 
   return (
     <>

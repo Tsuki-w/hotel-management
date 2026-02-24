@@ -4,7 +4,7 @@ import {
   bookingsAfterDateQuery,
   stayAfterDateQuery,
 } from "@/loader/dashboardLoader";
-import { cabinsQuery } from "@/loader/cabinsLoader";
+// import { cabinsQuery } from "@/loader/cabinsLoader";
 import { useSearchParams } from "react-router-dom"; // 添加依赖
 import { subDays } from "date-fns";
 import Spinner from "@/ui/Spinner";
@@ -38,22 +38,22 @@ function DashboardLayout() {
   const { data: stays, isPending: isStaysPending } = useQuery(
     stayAfterDateQuery(queryDate),
   );
-  const { data: cabins, isPending: isCabinsPending } = useQuery(cabinsQuery());
+  // const { data: cabins, isPending: isCabinsPending } = useQuery(cabinsQuery());
+  if (isBookingsPending || isStaysPending) return <Spinner />;
   const confirmStays = stays?.filter(
     (stay) => stay.status === "checked-in" || stay.status === "checked-out",
   );
-  if (isBookingsPending || isStaysPending || isCabinsPending)
-    return <Spinner />;
-
   return (
     <StyledDashboardLayout>
       <Stats
         bookings={bookings || []}
         confirmedStays={confirmStays || []}
-        numDays={numDays}
-        cabinCount={cabins?.length || 0}
+        // numDays={numDays}
+        // cabinCount={cabins?.length || 0}
       ></Stats>
-      <TodayActivity />
+      <Suspense fallback={<Spinner />}>
+        <TodayActivity />
+      </Suspense>
       <Suspense fallback={<Spinner />}>
         <DurationChart confirmStays={confirmStays || []} />
       </Suspense>

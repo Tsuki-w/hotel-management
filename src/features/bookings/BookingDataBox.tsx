@@ -156,7 +156,7 @@ function BookingDataBox({ booking }: { booking: TBookingDetail }) {
           <span>&bull;</span>
           <p>{email}</p>
           <span>&bull;</span>
-          <p>身份证号 {nationalID}</p>
+          <p>国家/地区ID {nationalID}</p>
         </Guest>
 
         {observations && (
